@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Main } from './src/main'
 
-const App = () => <div>Demo</div>;
+const App = () => <div><Main/></div>;
 
 ReactDOM.render(
     <App />,
