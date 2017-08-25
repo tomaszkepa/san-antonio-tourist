@@ -1,0 +1,14 @@
+{
+  "extends": "stylelint-config-standard",
+  "ignoreFiles": [
+    "vendor/**/*.scss"
+  ],
+	"plugins" : [
+	    "stylelint-order"
+	],
+  "rules": {
+    "declaration-no-important": true,
+    "at-rule-empty-line-before": "always",
+    "order/declaration-block-properties-alphabetical-order": true
+  }
+}

@@ -1,0 +1,18 @@
+[libs]
+flow-typed/
+
+node_modules/immutable/dist/immutable.js.flow
+[ignore]
+dist/
+examples/
+.*/node_modules/fbjs/.*
+.*/node_modules/flow-runtime/.*
+
+.*/node_modules/stylelint/.*
+[options]
+module.system=haste
+module.name_mapper='.*\(.css\)' -> 'CSSModule'
+suppress_type=$FlowIssue
+suppress_comment= \\(.\\|\n\\)*\\$FlowIssue
+unsafe.enable_getters_and_setters=true
+module.ignore_non_literal_requires=true

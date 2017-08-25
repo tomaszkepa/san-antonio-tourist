@@ -1,0 +1,38 @@
+{
+  "presets": [
+    "./scripts/preset-es2015",
+    "stage-0",
+    "react"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    },
+    "production": {
+      "plugins": [
+        "transform-react-constant-elements",
+        "transform-react-inline-elements",
+        [
+          "transform-react-remove-statics",
+          {
+            "propTypes": true,
+            "defaultProps": true
+          }
+        ]
+      ]
+    },
+    "test": {
+      "plugins": [
+        "rewire"
+      ]
+    }
+  },
+  "plugins": [
+    "dynamic-import-webpack",
+    "transform-flow-strip-types",
+    "transform-runtime"
+  ],
+  "sourceMaps": true
+}
