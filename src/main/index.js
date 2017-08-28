@@ -6,7 +6,7 @@ import * as actions from './actions';
 import reducer from './reducer';
 import saga from './sagas';
 
-import Main from './Main';
+import App from './App';
 
 const reducers = {
     reducer,
@@ -17,7 +17,7 @@ export { GoogleMapProvider, withGoogleMap } from './map';
 const sagas: Array<() => Iterator<*>> = [saga];
 
 export {
-    Main,
+    App,
     selectors,
     constants,
     reducers,

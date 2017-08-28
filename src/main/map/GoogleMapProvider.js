@@ -1,28 +1,35 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import $script from 'scriptjs';
 import contextTypes from './contextTypes';
+
+type GoogleMapProviderPropsType = {
+    apiKey?: String,
+    zoom?: Number,
+    lat?: Number,
+    lng?: Number,
+    children: Element<*>,
+}
 
 /**
  * Provides 'initMap' to those child components which are wrapped with 'withGoogleMap' decorator
  * @returns {React.Element<*>} A react element
  */
 class GoogleMapProvider extends React.Component {
-    static propTypes = {
-        apiKey: PropTypes.string,
-        children: PropTypes.element.isRequired,
-    };
-
     static childContextTypes = contextTypes;
 
-    constructor(props, context) {
-        super(props, context);
+    constructor(props: GoogleMapProviderPropsType) {
+        super(props);
 
         this.state = {
-            loaded: false,
+            loadedMap: false,
             map: null,
             google: null,
+        };
+    }
+
+    getChildContext() {
+        return {
+            initMap: () => this.initMap(),
         };
     }
 
@@ -31,57 +38,45 @@ class GoogleMapProvider extends React.Component {
         $script(`https://maps.googleapis.com/maps/api/js?key=${key}`, 'GoogleMaps');
     }
 
-    componentDidMount() {
-        const refs = this.refs;
+    initMap(config: { [key: string]: number }) {
+        if (this.state.loadedMap) {
+            return;
+        }
+
+        const {
+            zoom = 10,
+            lat = 29.4059225,
+            lng = -98.4968012,
+        } = config || {};
 
         $script.ready('GoogleMaps', () => {
             const maps = window.google.maps;
-            const props = Object.assign({}, this.props, {
-                loaded: this.state.loaded,
-            });
-
-            const mapRef = refs.map;
-
-            let zoom = 14;
-            let lat = 37.774929;
-            let lng = -122.419416;
-
-            const node = ReactDOM.findDOMNode(mapRef);
-            let center = new maps.LatLng(lat, lng);
-
-            let mapConfig = {
-                center, zoom: zoom,
-            };
-
-            this.map = new maps.Map(node, mapConfig);
+            const center = new maps.LatLng(lat, lng);
 
             this.setState({
-                loaded: true,
-                map: this.map,
+                loadedMap: true,
+                map: new maps.Map(this.mapRef, {
+                    center,
+                    zoom,
+                }),
                 google: window.google,
             });
         });
     }
 
-    getChildContext() {
-        return {
-            loaded: this.state.loaded,
-            map: this.state.map,
-            google: this.state.google,
-            mapComponent: this.refs.map
-        };
-    }
 
     render() {
         const style = {
-            width: '100vw',
-            height: '100vh',
+            width: '50vw',
+            height: '50vh',
         };
 
         return (
             <div>
-                { this.props.children }
-                <div ref='map' style={style} />
+                {React.cloneElement(this.props.children, { ...this.state })}
+                <div ref={ref => (this.mapRef = ref)} style={style}>
+                    Loading map...
+                </div>
             </div>
         );
     }

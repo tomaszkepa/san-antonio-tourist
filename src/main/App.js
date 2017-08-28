@@ -4,11 +4,10 @@ import { Provider } from 'react-redux';
 import { END } from 'redux-saga';
 import createStore from './store';
 
-import { Panel } from './panel';
 import { GoogleMapProvider } from './map';
+import { MainContainer } from './main';
 
-
-const Main = class extends Component {
+const App = class extends Component {
     constructor(props, context) {
         super(props, context);
         this.store = null;
@@ -26,11 +25,11 @@ const Main = class extends Component {
         return (
             <Provider store={this.store}>
                 <GoogleMapProvider>
-                    <Panel />
+                    <MainContainer />
                 </GoogleMapProvider>
             </Provider>
         );
     }
 };
 
-export default Main;
+export default App;
