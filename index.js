@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Main } from './src/main'
+import {Main, GoogleMapProvider, withGoogleMap} from './src/main'
 
-const App = () => <div><Main/></div>;
+const App = () => (<div>
+    <GoogleMapProvider>
+        <Main/>
+    </GoogleMapProvider>
+</div>);
 
 ReactDOM.render(
     <App />,

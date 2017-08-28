@@ -13,6 +13,8 @@ const reducers = {
     reducer,
 };
 
+export { GoogleMapProvider, withGoogleMap } from './map';
+
 const sagas: Array<() => Iterator<*>> = [saga];
 
 export {
