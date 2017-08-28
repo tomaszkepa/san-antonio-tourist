@@ -17,6 +17,7 @@ npm-debug.log*
 # editor files
 # https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 # User-specific stuff from JetBrains:
+.idea
 .idea/*
 # Leaving misc.xml because we save JS parsing engine there
 !.idea/misc.xml
