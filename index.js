@@ -1,15 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Main, GoogleMapProvider, withGoogleMap} from './src/main'
-
-const App = () => (<div>
-    <GoogleMapProvider>
-        <Main/>
-    </GoogleMapProvider>
-</div>);
+import { Main } from './src/main';
 
 ReactDOM.render(
-    <App />,
+    <Main />,
     document.getElementById('app'),
 );
 

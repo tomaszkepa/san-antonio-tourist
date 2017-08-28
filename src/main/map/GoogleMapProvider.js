@@ -22,8 +22,8 @@ class GoogleMapProvider extends React.Component {
         this.state = {
             loaded: false,
             map: null,
-            google: null
-        }
+            google: null,
+        };
     }
 
     componentWillMount() {
@@ -37,7 +37,7 @@ class GoogleMapProvider extends React.Component {
         $script.ready('GoogleMaps', () => {
             const maps = window.google.maps;
             const props = Object.assign({}, this.props, {
-                loaded: this.state.loaded
+                loaded: this.state.loaded,
             });
 
             const mapRef = refs.map;
@@ -47,19 +47,19 @@ class GoogleMapProvider extends React.Component {
             let lng = -122.419416;
 
             const node = ReactDOM.findDOMNode(mapRef);
-            let center = new maps.LatLng(lat, lng)
+            let center = new maps.LatLng(lat, lng);
 
             let mapConfig = {
-                center, zoom: zoom
-            }
+                center, zoom: zoom,
+            };
 
             this.map = new maps.Map(node, mapConfig);
 
             this.setState({
                 loaded: true,
                 map: this.map,
-                google: window.google
-            })
+                google: window.google,
+            });
         });
     }
 
@@ -75,14 +75,15 @@ class GoogleMapProvider extends React.Component {
     render() {
         const style = {
             width: '100vw',
-            height: '100vh'
-        }
+            height: '100vh',
+        };
+
         return (
             <div>
                 { this.props.children }
-                <div ref='map' style={style}/>
+                <div ref='map' style={style} />
             </div>
-        )
+        );
     }
 }
 
