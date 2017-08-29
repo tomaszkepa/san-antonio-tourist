@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Search from '../search/search';
 
 type MainContainerPropsType = {
-    initMap: () => void,
+    addMarker: () => void,
 };
 
 /**
@@ -15,18 +15,20 @@ class MainContainer extends Component {
         super(props);
     }
 
-    componentWillMount() {
-        this.props.initMap();
-    }
-
-
     render() {
-        const pos = {
-            lat: 29.4059225,
-            lng: -98.4968012,
-        };
+        this.props.addMarker({
+            position: {
+                lat: 29.4059225,
+                lng: -98.4968012,
+            },
+        });
 
-        this.props.addMarker({ position: pos });
+        this.props.addMarker({
+            position: {
+                lat: 29.4059225,
+                lng: -98.4268012,
+            },
+        });
 
         return (
             <div>

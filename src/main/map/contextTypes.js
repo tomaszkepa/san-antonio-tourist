@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 export default {
-    initMap: PropTypes.func,
     addMarker: PropTypes.func,
+    google: PropTypes.object,
+    map: PropTypes.object,
 };

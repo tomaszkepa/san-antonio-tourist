@@ -14,12 +14,8 @@ const Search = class extends Component {
         };
     }
 
-    componentDidUpdate(prevProps) {
-        const { google, map } = this.props;
-
-        if ((google && map) && (map !== prevProps.map)) {
-            this.initAutoComplete();
-        }
+    componentDidMount() {
+        this.initAutoComplete();
     }
 
     initAutoComplete() {
@@ -58,10 +54,7 @@ const Search = class extends Component {
                             placeholder="Enter a location"
                         />
 
-                        <input
-                            type="submit"
-                            value="Go"
-                        />
+                        <input type="submit" value="Go" />
                     </form>
                 </div>
             </div>

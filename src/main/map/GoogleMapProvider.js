@@ -11,7 +11,7 @@ type GoogleMapProviderPropsType = {
 }
 
 /**
- * Provides 'initMap' to those child components which are wrapped with 'withGoogleMap' decorator
+ * Provides 'google' and 'map' to those child components which are wrapped with 'withGoogleMap' decorator
  * @returns {React.Element<*>} A react element
  */
 class GoogleMapProvider extends React.Component {
@@ -28,9 +28,11 @@ class GoogleMapProvider extends React.Component {
     }
 
     getChildContext() {
+        console.log('***getChildContext***');
         return {
-            initMap: (data) => this.initMap(data),
             addMarker: (data) => this.addMarker(data),
+            google: this.state.google,
+            map: this.state.map,
         };
     }
 
@@ -39,7 +41,7 @@ class GoogleMapProvider extends React.Component {
         $script(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`, 'GoogleMaps');
     }
 
-    initMap(config: { [key: string]: number }) {
+    componentDidMount() {
         if (this.state.loadedMap) {
             return;
         }
@@ -48,7 +50,7 @@ class GoogleMapProvider extends React.Component {
             zoom = 10,
             lat = 29.4059225,
             lng = -98.4968012,
-        } = config || {};
+        } = this.props;
 
         $script.ready('GoogleMaps', () => {
             const maps = window.google.maps;
@@ -66,7 +68,6 @@ class GoogleMapProvider extends React.Component {
     }
 
     addMarker(config: { [key: string]: Object }) {
-        console.log(config)
         const {
             map,
             google,
@@ -77,35 +78,19 @@ class GoogleMapProvider extends React.Component {
             return;
         }
 
-        let {
-            position,
-            mapCenter,
-            icon,
-            label,
-            draggable,
-            title,
-        } = config;
-
+        let { position } = config;
+        const { mapCenter } = config;
         const pos = position || mapCenter;
 
         if (!(pos instanceof google.maps.LatLng)) {
             position = new google.maps.LatLng(pos.lat, pos.lng);
         }
 
-        const pref = {
+        this.marker = new google.maps.Marker(Object.assign({}, config, {
             map,
             position,
-            icon,
-            label,
-            title,
-            draggable,
-        };
-
-        this.marker = new google.maps.Marker(pref);
-
-        console.log(this.marker)
+        }));
     }
-
 
     render() {
         const style = {
@@ -115,7 +100,7 @@ class GoogleMapProvider extends React.Component {
 
         return (
             <div>
-                {React.cloneElement(this.props.children, { ...this.state })}
+                { this.state.map && this.props.children }
                 <div ref={ref => (this.mapRef = ref)} style={style}>
                     Loading map...
                 </div>
