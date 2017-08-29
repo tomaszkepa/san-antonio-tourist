@@ -57,6 +57,9 @@ class GoogleMapProvider extends React.Component {
             },
         ];
 
+        // new google.maps.LatLng(45.658197,-73.636333)
+        // location: new google.maps.LatLng(45.658197,-73.636333),
+
         const {
             origin = 'Halifax, NS', // from
             destination = 'Miami, FL', // to
@@ -75,7 +78,6 @@ class GoogleMapProvider extends React.Component {
             if (status === 'OK') {
                 this.state.directionsDisplay.setDirections(response);
                 const route = response.routes.shift();
-                console.log(route);
             } else {
                 window.alert('Directions request failed');
             }
@@ -148,12 +150,14 @@ class GoogleMapProvider extends React.Component {
         };
 
         return (
-            <div>
-                { this.state.map && this.props.children }
-                <div ref={ref => (this.mapRef = ref)} style={style}>
+            <section>
+                <section style={style}>
+                    { this.state.map && this.props.children }
+                </section>
+                <section ref={ref => (this.mapRef = ref)} style={style}>
                     Loading map...
-                </div>
-            </div>
+                </section>
+            </section>
         );
     }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 type SearchPropsType = {
+    addLocation: () => void,
     google: Object,
     map: Object,
 }
@@ -9,8 +10,10 @@ const Search = class extends Component {
     constructor(props: SearchPropsType, context) {
         super(props, context);
         this.state = {
-            place: null,
-            position: null,
+            position: {
+                lat: null,
+                lng: null,
+            },
         };
     }
 
@@ -33,13 +36,26 @@ const Search = class extends Component {
                 map.fitBounds(place.geometry.viewport);
             } else {
                 map.setCenter(place.geometry.location);
-                map.setZoom(12);
+                map.setZoom(11);
             }
 
             this.setState({
-                place,
-                position: place.geometry.location,
+                position: {
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng(),
+                },
             });
+        });
+    }
+
+    addLocation() {
+        this.props.addLocation(this.state.position);
+
+        this.setState({
+            position: {
+                lat: null,
+                lng: null,
+            },
         });
     }
 
@@ -56,6 +72,12 @@ const Search = class extends Component {
 
                         <input type="submit" value="Go" />
                     </form>
+
+                    <div>
+                        <p>{this.state.position.lat}</p>
+                        <p>{this.state.position.lng}</p>
+                        <button onClick={() => this.addLocation()}>Add Location</button>
+                    </div>
                 </div>
             </div>
         );

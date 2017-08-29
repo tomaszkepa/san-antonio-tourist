@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import Search from '../search/search';
+import { Search } from '../search';
 
 type MainContainerPropsType = {
     addMarker: () => void,
@@ -20,8 +20,6 @@ class MainContainer extends Component {
         this.props.locations.forEach((position) => {
             this.props.addMarker({ position });
         });
-
-        this.props.displayRoute()
 
         return (
             <div>
