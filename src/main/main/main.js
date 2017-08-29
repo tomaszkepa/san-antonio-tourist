@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import Search from '../search/search';
 
 type MainContainerPropsType = {
     initMap: () => void,
@@ -20,8 +21,19 @@ class MainContainer extends Component {
 
 
     render() {
+        const pos = {
+            lat: 29.4059225,
+            lng: -98.4968012,
+        };
+
+        this.props.addMarker({ position: pos });
+
         return (
-            <div>MainContainer</div>
+            <div>
+                MainComponent
+
+                <Search {...this.props} />
+            </div>
         );
     }
 }

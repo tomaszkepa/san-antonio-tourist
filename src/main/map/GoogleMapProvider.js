@@ -29,13 +29,14 @@ class GoogleMapProvider extends React.Component {
 
     getChildContext() {
         return {
-            initMap: () => this.initMap(),
+            initMap: (data) => this.initMap(data),
+            addMarker: (data) => this.addMarker(data),
         };
     }
 
     componentWillMount() {
         const key = this.props.apiKey || 'AIzaSyC2VNAnZeX5Tu7-MBPm7h3XRs_GiEIQXQM';
-        $script(`https://maps.googleapis.com/maps/api/js?key=${key}`, 'GoogleMaps');
+        $script(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`, 'GoogleMaps');
     }
 
     initMap(config: { [key: string]: number }) {
@@ -64,10 +65,51 @@ class GoogleMapProvider extends React.Component {
         });
     }
 
+    addMarker(config: { [key: string]: Object }) {
+        console.log(config)
+        const {
+            map,
+            google,
+            loadedMap,
+        } = this.state;
+
+        if (!google || !loadedMap) {
+            return;
+        }
+
+        let {
+            position,
+            mapCenter,
+            icon,
+            label,
+            draggable,
+            title,
+        } = config;
+
+        const pos = position || mapCenter;
+
+        if (!(pos instanceof google.maps.LatLng)) {
+            position = new google.maps.LatLng(pos.lat, pos.lng);
+        }
+
+        const pref = {
+            map,
+            position,
+            icon,
+            label,
+            title,
+            draggable,
+        };
+
+        this.marker = new google.maps.Marker(pref);
+
+        console.log(this.marker)
+    }
+
 
     render() {
         const style = {
-            width: '50vw',
+            width: '100vw',
             height: '50vh',
         };
 
