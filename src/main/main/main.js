@@ -21,6 +21,8 @@ class MainContainer extends Component {
             this.props.addMarker({ position });
         });
 
+        this.props.displayRoute()
+
         return (
             <div>
                 MainComponent

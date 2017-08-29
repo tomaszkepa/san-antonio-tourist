@@ -22,6 +22,8 @@ class GoogleMapProvider extends React.Component {
 
         this.state = {
             loadedMap: false,
+            directionsService: null,
+            directionsDisplay: null,
             map: null,
             google: null,
         };
@@ -31,6 +33,9 @@ class GoogleMapProvider extends React.Component {
         console.log('***getChildContext***');
         return {
             addMarker: (data) => this.addMarker(data),
+            displayRoute: (data) => this.displayRoute(data),
+            directionsService: this.state.directionsService,
+            directionsDisplay: this.state.directionsDisplay,
             google: this.state.google,
             map: this.state.map,
         };
@@ -39,6 +44,42 @@ class GoogleMapProvider extends React.Component {
     componentWillMount() {
         const key = this.props.apiKey || 'AIzaSyC2VNAnZeX5Tu7-MBPm7h3XRs_GiEIQXQM';
         $script(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places`, 'GoogleMaps');
+    }
+
+    displayRoute(data: { [key: string]: string }) {
+        const testData = [
+            {
+                location: 'montreal, quebec',
+                stopover: true,
+            }, {
+                location: 'toronto, ont',
+                stopover: true,
+            },
+        ];
+
+        const {
+            origin = 'Halifax, NS', // from
+            destination = 'Miami, FL', // to
+            waypoints = testData,
+            optimizeWaypoints = true,
+            travelMode = 'DRIVING',
+        } = data || {};
+
+        this.state.directionsService.route({
+            origin,
+            destination,
+            waypoints,
+            optimizeWaypoints,
+            travelMode,
+        }, (response, status) => {
+            if (status === 'OK') {
+                this.state.directionsDisplay.setDirections(response);
+                const route = response.routes.shift();
+                console.log(route);
+            } else {
+                window.alert('Directions request failed');
+            }
+        });
     }
 
     componentDidMount() {
@@ -53,16 +94,24 @@ class GoogleMapProvider extends React.Component {
         } = this.props;
 
         $script.ready('GoogleMaps', () => {
-            const maps = window.google.maps;
-            const center = new maps.LatLng(lat, lng);
+            const google = window.google || {};
+            const center = new google.maps.LatLng(lat, lng);
+            const directionsService = new google.maps.DirectionsService;
+            const directionsDisplay = new google.maps.DirectionsRenderer;
+
+            const map = new google.maps.Map(this.mapRef, {
+                center,
+                zoom,
+            });
+
+            directionsDisplay.setMap(map);
 
             this.setState({
                 loadedMap: true,
-                map: new maps.Map(this.mapRef, {
-                    center,
-                    zoom,
-                }),
-                google: window.google,
+                directionsService,
+                directionsDisplay,
+                google,
+                map,
             });
         });
     }
