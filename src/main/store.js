@@ -1,10 +1,11 @@
 import { createStore as createBasicStore } from 'redux';
 import { combineReducers } from 'redux-immutable';
+import locations from './reducer';
 
-const reducer = combineReducers({
-    dummy: (state = '') => state,
+const reducers = combineReducers({
+    locations,
 });
 
-const createStore = () => createBasicStore(reducer);
+const createStore = () => createBasicStore(reducers);
 
 export default createStore;

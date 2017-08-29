@@ -4,6 +4,7 @@ import Search from '../search/search';
 
 type MainContainerPropsType = {
     addMarker: () => void,
+    locations: Array,
 };
 
 /**
@@ -16,18 +17,8 @@ class MainContainer extends Component {
     }
 
     render() {
-        this.props.addMarker({
-            position: {
-                lat: 29.4059225,
-                lng: -98.4968012,
-            },
-        });
-
-        this.props.addMarker({
-            position: {
-                lat: 29.4059225,
-                lng: -98.4268012,
-            },
+        this.props.locations.forEach((position) => {
+            this.props.addMarker({ position });
         });
 
         return (
