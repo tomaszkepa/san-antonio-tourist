@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 type LocationsPropsType = {
     locations: Object,
+    displayRoute: () => void,
 }
 
 const Locations = class extends Component {
@@ -26,7 +27,6 @@ const Locations = class extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.props.displayRoute(this.props.locations)}>displayRoute</button>
                 <ul>
                     { this.renderLocationList() }
                 </ul>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './search.scss';
+
 type SearchPropsType = {
     addLocation: () => void,
     google: Object,
@@ -23,12 +25,14 @@ const Search = class extends Component {
     }
 
     initAutoComplete() {
+        const markers = [];
         const { google, map } = this.props;
         const autocomplete = new google.maps.places.Autocomplete(this.autocompleteRef);
 
         autocomplete.bindTo('bounds', map);
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
+
             if (!place.geometry) {
                 return;
             }
@@ -39,6 +43,18 @@ const Search = class extends Component {
                 map.setCenter(place.geometry.location);
                 map.setZoom(11);
             }
+
+            // Clear out the old markers.
+            markers.forEach((marker) => {
+                markers.pop();
+                marker.setMap(null);
+            });
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+                map,
+                position: place.geometry.location,
+            }));
 
             this.setState({
                 position: {
@@ -64,24 +80,17 @@ const Search = class extends Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <input
-                            ref={ref => (this.autocompleteRef = ref)}
-                            type="text"
-                            placeholder="Enter a location"
-                        />
+            <div className="sat__search">
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <input
+                        ref={ref => (this.autocompleteRef = ref)}
+                        type="text"
+                        placeholder="Enter a location"
+                        className="sat__search__input"
+                    />
+                </form>
 
-                        <input type="submit" value="Go" />
-                    </form>
-
-                    <div>
-                        <p>{this.state.position.lat}</p>
-                        <p>{this.state.position.lng}</p>
-                        <button onClick={() => this.addLocation()}>Add Location</button>
-                    </div>
-                </div>
+                <button onClick={() => this.addLocation()} disabled={!this.state.position.place}>Add Location</button>
             </div>
         );
     }

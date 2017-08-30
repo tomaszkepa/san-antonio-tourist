@@ -7,6 +7,8 @@ import createStore from './store';
 import { GoogleMapProvider } from './map';
 import { MainContainer } from './main';
 
+import './main.scss';
+
 const App = class extends Component {
     constructor(props, context) {
         super(props, context);

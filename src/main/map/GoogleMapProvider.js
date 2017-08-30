@@ -3,6 +3,8 @@ import $script from 'scriptjs';
 import { List } from 'immutable';
 import contextTypes from './contextTypes';
 
+import './google-map-provider.scss';
+
 type GoogleMapProviderPropsType = {
     apiKey?: String,
     zoom?: Number,
@@ -34,7 +36,6 @@ class GoogleMapProvider extends React.Component {
         console.log('***getChildContext***');
         return {
             addMarker: (data) => this.addMarker(data),
-            displayRoute: (data) => () => this.displayRoute(data),
             directionsService: this.state.directionsService,
             directionsDisplay: this.state.directionsDisplay,
             google: this.state.google,
@@ -81,44 +82,6 @@ class GoogleMapProvider extends React.Component {
         });
     }
 
-    displayRoute(data: List) {
-        const from = data.get(0);
-        const to = data.get(-1);
-        const stops = [];
-
-        if (data.size > 2) {
-            data.pop().shift().forEach((location) => {
-                stops.push({
-                    location: location.place.geometry.location,
-                    stopover: true,
-                });
-            });
-        }
-
-        const {
-            origin = from,
-            destination = to,
-            waypoints = stops,
-            optimizeWaypoints = true,
-            travelMode = 'WALKING',
-        } = data || {};
-
-        this.state.directionsService.route({
-            origin,
-            destination,
-            waypoints,
-            optimizeWaypoints,
-            travelMode,
-        }, (response, status) => {
-            if (status === 'OK') {
-                this.state.directionsDisplay.setDirections(response);
-                console.log(response.routes.shift());
-            } else {
-                window.alert('Directions request failed');
-            }
-        });
-    }
-
     addMarker(config: { [key: string]: Object }) {
         const {
             map,
@@ -145,17 +108,12 @@ class GoogleMapProvider extends React.Component {
     }
 
     render() {
-        const style = {
-            width: '100vw',
-            height: '50vh',
-        };
-
         return (
-            <section>
-                <section style={style}>
+            <section className="sat__container">
+                <section className="sat__container__content">
                     { this.state.map && this.props.children }
                 </section>
-                <section ref={ref => (this.mapRef = ref)} style={style}>
+                <section ref={ref => (this.mapRef = ref)} className="sat__container__map">
                     Loading map...
                 </section>
             </section>

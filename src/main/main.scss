@@ -1,4 +1,5 @@
-/** Example styles to prevent stylelint task to break the build upon initial project generation */
-body {
-  background: #fff;
-}
+@import 'styles/generic/generic.box-sizing';
+
+@import 'styles/generic/generic.normalize';
+
+@import 'styles/generic/generic.reset';

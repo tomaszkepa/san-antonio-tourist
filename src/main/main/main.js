@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Search } from '../search';
 import { Locations } from '../locations';
+import { Route } from '../route';
 
 type MainContainerPropsType = {
     addMarker: () => void,
@@ -18,15 +19,16 @@ class MainContainer extends Component {
     }
 
     render() {
-        this.props.locations.forEach((position) => {
-            this.props.addMarker({ position });
-        });
+        // this.props.locations.forEach((position) => {
+        //     this.props.addMarker({ position });
+        // });
 
         return (
             <div>
-                MainComponent
-                <Locations {...this.props} />
                 <Search {...this.props} />
+                <Locations {...this.props} />
+
+                <Route />
             </div>
         );
     }
