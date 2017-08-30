@@ -1,4 +1,14 @@
 .sat__locations {
   float: left;
   width: 50vw;
+
+  &__header {
+    height: 5vh;
+    text-align: center;
+  }
+
+  &__list {
+    height: 45vh;
+    overflow: scroll;
+  }
 }

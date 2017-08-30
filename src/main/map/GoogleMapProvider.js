@@ -80,31 +80,6 @@ class GoogleMapProvider extends React.Component {
         });
     }
 
-    // addMarker(config: { [key: string]: Object }) {
-    //     const {
-    //         map,
-    //         google,
-    //         loadedMap,
-    //     } = this.state;
-    //
-    //     if (!google || !loadedMap) {
-    //         return;
-    //     }
-    //
-    //     let { position } = config;
-    //     const { mapCenter } = config;
-    //     const pos = position || mapCenter;
-    //
-    //     if (!(pos instanceof google.maps.LatLng)) {
-    //         position = new google.maps.LatLng(pos.lat, pos.lng);
-    //     }
-    //
-    //     new google.maps.Marker(Object.assign({}, config, {
-    //         map,
-    //         position,
-    //     }));
-    // }
-
     render() {
         return (
             <section className="sat__container">

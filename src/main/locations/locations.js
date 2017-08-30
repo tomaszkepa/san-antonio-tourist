@@ -29,8 +29,8 @@ const Locations = class extends Component {
     render() {
         return (
             <div className="sat__locations">
-                <h4>Location list:</h4>
-                <ul>
+                <h4 className="sat__locations__header">Location list:</h4>
+                <ul className="sat__locations__list">
                     { this.renderLocationList() }
                 </ul>
             </div>

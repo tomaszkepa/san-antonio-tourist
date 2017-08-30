@@ -1,4 +1,14 @@
 .sat__route {
   float: left;
   width: 50vw;
+
+  &__btn {
+    height: 5vh;
+    width: 100%;
+  }
+
+  &__list {
+    height: 50vh;
+    overflow: scroll;
+  }
 }

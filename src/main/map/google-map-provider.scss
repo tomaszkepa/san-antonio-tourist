@@ -1,15 +1,13 @@
-.sat {
+.sat__container {
+  height: 100vh;
 
-  &__container {
+  &__content {
+    height: 60vh;
+    width: 100vw;
+  }
 
-    &__content {
-      width: 100vw;
-      height: 50vh;
-    }
-
-    &__map {
-      width: 100vw;
-      height: 50vh;
-    }
+  &__map {
+    height: 40vh;
+    width: 100vw;
   }
 }

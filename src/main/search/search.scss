@@ -1,17 +1,19 @@
 .sat__search {
+  height: 5vh;
+
   &__form {
     float: left;
-    height: 40px;
+    height: 100%;
     width: 80%;
 
     &__input {
-      height: 40px;
+      height: 100%;
       width: 100%;
     }
 
     &__btn {
       float: left;
-      height: 40px;
+      height: 100%;
       width: 20%;
     }
   }

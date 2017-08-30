@@ -4,6 +4,8 @@ import { Search } from '../search';
 import { Locations } from '../locations';
 import { Route } from '../route';
 
+import './main.scss';
+
 type MainContainerPropsType = {
     locations: Array,
 };
@@ -19,11 +21,13 @@ class MainContainer extends Component {
 
     render() {
         return (
-            <div>
-                <Search/>
-                <Locations />
-                <Route />
-            </div>
+            <section>
+                <Search />
+                <section className="sat__details">
+                    <Locations />
+                    <Route />
+                </section>
+            </section>
         );
     }
 }
