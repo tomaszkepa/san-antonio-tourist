@@ -66,9 +66,9 @@ const Search = class extends Component {
         });
     }
 
-    addLocation() {
+    addLocationHandler() {
         this.props.addLocation(this.state.position);
-
+        this.autocompleteRef.value = '';
         this.setState({
             position: {
                 place: null,
@@ -81,16 +81,24 @@ const Search = class extends Component {
     render() {
         return (
             <div className="sat__search">
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form
+                    className="sat__search__form"
+                    onSubmit={(e) => e.preventDefault()}>
                     <input
                         ref={ref => (this.autocompleteRef = ref)}
                         type="text"
                         placeholder="Enter a location"
-                        className="sat__search__input"
+                        className="sat__search__form__input"
                     />
                 </form>
 
-                <button onClick={() => this.addLocation()} disabled={!this.state.position.place}>Add Location</button>
+                <button
+                    onClick={() => this.addLocationHandler()}
+                    disabled={!this.state.position.place}
+                    className="sat__search__form__btn"
+                >
+                    Add Location
+                </button>
             </div>
         );
     }

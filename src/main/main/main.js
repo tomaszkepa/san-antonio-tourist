@@ -5,7 +5,6 @@ import { Locations } from '../locations';
 import { Route } from '../route';
 
 type MainContainerPropsType = {
-    addMarker: () => void,
     locations: Array,
 };
 
@@ -19,15 +18,10 @@ class MainContainer extends Component {
     }
 
     render() {
-        // this.props.locations.forEach((position) => {
-        //     this.props.addMarker({ position });
-        // });
-
         return (
             <div>
-                <Search {...this.props} />
-                <Locations {...this.props} />
-
+                <Search/>
+                <Locations />
                 <Route />
             </div>
         );

@@ -1,6 +1,5 @@
 import React from 'react';
 import $script from 'scriptjs';
-import { List } from 'immutable';
 import contextTypes from './contextTypes';
 
 import './google-map-provider.scss';
@@ -35,7 +34,6 @@ class GoogleMapProvider extends React.Component {
     getChildContext() {
         console.log('***getChildContext***');
         return {
-            addMarker: (data) => this.addMarker(data),
             directionsService: this.state.directionsService,
             directionsDisplay: this.state.directionsDisplay,
             google: this.state.google,
@@ -82,30 +80,30 @@ class GoogleMapProvider extends React.Component {
         });
     }
 
-    addMarker(config: { [key: string]: Object }) {
-        const {
-            map,
-            google,
-            loadedMap,
-        } = this.state;
-
-        if (!google || !loadedMap) {
-            return;
-        }
-
-        let { position } = config;
-        const { mapCenter } = config;
-        const pos = position || mapCenter;
-
-        if (!(pos instanceof google.maps.LatLng)) {
-            position = new google.maps.LatLng(pos.lat, pos.lng);
-        }
-
-        this.marker = new google.maps.Marker(Object.assign({}, config, {
-            map,
-            position,
-        }));
-    }
+    // addMarker(config: { [key: string]: Object }) {
+    //     const {
+    //         map,
+    //         google,
+    //         loadedMap,
+    //     } = this.state;
+    //
+    //     if (!google || !loadedMap) {
+    //         return;
+    //     }
+    //
+    //     let { position } = config;
+    //     const { mapCenter } = config;
+    //     const pos = position || mapCenter;
+    //
+    //     if (!(pos instanceof google.maps.LatLng)) {
+    //         position = new google.maps.LatLng(pos.lat, pos.lng);
+    //     }
+    //
+    //     new google.maps.Marker(Object.assign({}, config, {
+    //         map,
+    //         position,
+    //     }));
+    // }
 
     render() {
         return (

@@ -66,12 +66,31 @@ const Route = class extends Component {
         });
     }
 
+    renderRoute() {
+        const routeList = [];
+        this.state.route.legs.forEach((leg, i) => {
+            routeList.push(
+                <div key={i}>
+                    <p><b>Route Segment: {i + 1}</b></p>
+                    <b>From:</b> {leg.start_address}<br />
+                    <b>To:</b> {leg.end_address}<br />
+                    <b>Distance:</b> {leg.distance.text}<br />
+                    <b>Duration:</b> {leg.duration.text}<br />
+                </div>
+            );
+        });
+
+        return routeList;
+    }
+
     render() {
         return (
-            <div>
+            <div className="sat__route">
                 <button onClick={() => this.displayRoute()} disabled={this.props.locations.size < 1}>
                     Display Route
                 </button>
+
+                {this.state.route && this.renderRoute()}
             </div>
         );
     }
