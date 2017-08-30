@@ -1,4 +1,4 @@
 // @flow
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
-export const getLocations = (state: Map<*, *>) => state.getIn(['locations', 'positions'], []);
+export const getLocations = (state: Map<*, *>) => state.getIn(['locations', 'positions'], List());

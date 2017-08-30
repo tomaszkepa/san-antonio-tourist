@@ -11,6 +11,7 @@ const Search = class extends Component {
         super(props, context);
         this.state = {
             position: {
+                place: null,
                 lat: null,
                 lng: null,
             },
@@ -41,6 +42,7 @@ const Search = class extends Component {
 
             this.setState({
                 position: {
+                    place,
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                 },
@@ -53,6 +55,7 @@ const Search = class extends Component {
 
         this.setState({
             position: {
+                place: null,
                 lat: null,
                 lng: null,
             },

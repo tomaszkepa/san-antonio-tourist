@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Search } from '../search';
+import { Locations } from '../locations';
 
 type MainContainerPropsType = {
     addMarker: () => void,
@@ -24,7 +25,7 @@ class MainContainer extends Component {
         return (
             <div>
                 MainComponent
-
+                <Locations {...this.props} />
                 <Search {...this.props} />
             </div>
         );

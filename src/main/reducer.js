@@ -9,25 +9,9 @@ import {
     ADD_LOCATION,
 } from './constants';
 
-// TODO: Remove
 const initialState = Map({
-    positions: List([
-        {
-            lat: 29.4059225,
-            lng: -98.4268012,
-        }, {
-            lat: 29.4159225,
-            lng: -98.4468012,
-        }, {
-            lat: 29.4559225,
-            lng: -98.4168012,
-        }, {
-            lat: 29.1559225,
-            lng: -98.2168012,
-        },
-    ]),
+    positions: List(),
 });
-
 
 /**
  * Log in attempt failed - display a message
