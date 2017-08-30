@@ -95,7 +95,7 @@ const Search = class extends Component {
                 <button
                     onClick={() => this.addLocationHandler()}
                     disabled={!this.state.position.place}
-                    className="sat__search__form__btn"
+                    className="sat__search__form__btn waves-effect waves-light btn-large"
                 >
                     Add Location
                 </button>

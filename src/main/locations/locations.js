@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import type { List } from 'immutable';
 
 import './locations.scss';
 
 type LocationsPropsType = {
-    locations: Object,
+    locations: List,
     displayRoute: () => void,
 }
 
@@ -12,27 +13,25 @@ const Locations = class extends Component {
         super(props, context);
     }
 
-    renderLocationList() {
-        const locationList = [];
-
-        this.props.locations.forEach((location, id) => {
-            if (!location.place) {
-                return;
-            }
-
-            locationList.push(<li key={id}>{location.place.formatted_address}</li>);
-        });
-
-        return locationList;
-    }
-
     render() {
+        const { locations } = this.props;
+
+        const listItems = locations ? locations.map((location, i) =>
+            <li key={i} className="collection-item">
+                {location.place.formatted_address}
+            </li>
+        ) : null;
+
         return (
             <div className="sat__locations">
-                <h4 className="sat__locations__header">Location list:</h4>
-                <ul className="sat__locations__list">
-                    { this.renderLocationList() }
-                </ul>
+                {
+                    !!locations.size && (
+                        <ul className="sat__locations__list collection with-header">
+                            <li className="collection-header"><h5>Location list:</h5></li>
+                            {listItems}
+                        </ul>
+                    )
+                }
             </div>
         );
     }

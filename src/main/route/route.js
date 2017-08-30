@@ -66,38 +66,38 @@ const Route = class extends Component {
         });
     }
 
-    renderRoute() {
-        const routeList = [];
-        this.state.route.legs.forEach((leg, i) => {
-            routeList.push(
-                <div key={i}>
-                    <p><b>Route Segment {i + 1}:</b></p>
-                    <b>From:</b> {leg.start_address}<br />
-                    <b>To:</b> {leg.end_address}<br />
-                    <b>Distance:</b> {leg.distance.text}<br />
-                    <b>Duration:</b> {leg.duration.text}<br />
-                    <hr />
-                </div>
-            );
-        });
-
-        return routeList;
-    }
-
     render() {
+        const { route } = this.state;
+
+        const listItems = route ? route.legs.map((leg, i) =>
+            <li key={i} className="collection-item">
+                <p><b>Route Segment {i + 1}:</b></p>
+                <b>From:</b> {leg.start_address}<br />
+                <b>To:</b> {leg.end_address}<br />
+                <b>Distance:</b> {leg.distance.text}<br />
+                <b>Duration:</b> {leg.duration.text}<br />
+            </li>
+        ) : null;
+
         return (
             <div className="sat__route">
                 <button
-                    className="sat__route__btn"
+                    className="sat__route__btn waves-effect waves-light btn-large"
                     onClick={() => this.displayRoute()}
                     disabled={this.props.locations.size < 1}
                 >
                     Display Route
                 </button>
 
-                <div className="sat__route__list">
-                    {this.state.route && this.renderRoute()}
-                </div>
+                {
+                    !!route && (
+                        <div className="sat__route__list">
+                            <ul className="collection">
+                                {listItems}
+                            </ul>
+                        </div>
+                    )
+                }
             </div>
         );
     }
