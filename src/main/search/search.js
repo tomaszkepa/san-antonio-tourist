@@ -1,13 +1,18 @@
+// @flow
 import React, { Component } from 'react';
 
 import './search.scss';
 
 type SearchPropsType = {
     addLocation: () => void,
-    google: Object,
-    map: Object,
+    google: { [key: string]: any },
+    map: { [key: string]: any },
 }
 
+/**
+ * Search component
+ * @returns {Element} React element
+ */
 const Search = class extends Component {
     constructor(props: SearchPropsType, context) {
         super(props, context);

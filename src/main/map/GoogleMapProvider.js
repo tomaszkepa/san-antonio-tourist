@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import $script from 'scriptjs';
 import contextTypes from './contextTypes';

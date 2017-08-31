@@ -9,11 +9,15 @@ import { Search } from './search';
 import { Locations } from './locations';
 import { Route } from './route';
 
-import './main.scss';
+import './styles/main.scss';
 
+/**
+ * App component
+ * @returns {Element} React element
+ */
 const App = class extends Component {
-    constructor(props, context) {
-        super(props, context);
+    constructor() {
+        super();
         this.store = null;
     }
 

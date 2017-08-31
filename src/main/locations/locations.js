@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import type { List } from 'immutable';
 
@@ -8,6 +9,10 @@ type LocationsPropsType = {
     displayRoute: () => void,
 }
 
+/**
+ * Locations component
+ * @returns {Element} React element
+ */
 const Locations = class extends Component {
     constructor(props: LocationsPropsType, context) {
         super(props, context);

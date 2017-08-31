@@ -1,14 +1,19 @@
+// @flow
 import React, { Component } from 'react';
 
 import './route.scss';
 
 type RoutePropsType = {
-    locations: Object,
-    google: Object,
-    directionsService: Object,
-    directionsDisplay: Object,
+    locations: { [key: string]: any },
+    google: { [key: string]: any },
+    directionsService: { [key: string]: any },
+    directionsDisplay: { [key: string]: any },
 }
 
+/**
+ * Route component
+ * @returns {Element} React element
+ */
 const Route = class extends Component {
     constructor(props: RoutePropsType) {
         super(props);
