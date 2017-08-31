@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { spy } from 'sinon';
-import { List } from 'immutable';
 
 import {
     expect,

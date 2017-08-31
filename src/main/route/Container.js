@@ -10,7 +10,6 @@ import Route from './route';
 const mapStateToProps = createStructuredSelector({
     locations: getLocations,
 });
-const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withGoogleMap(Route));
+export default connect(mapStateToProps, null)(withGoogleMap(Route));
 

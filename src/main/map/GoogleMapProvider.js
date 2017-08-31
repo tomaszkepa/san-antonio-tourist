@@ -20,7 +20,7 @@ type GoogleMapProviderPropsType = {
     zoom?: Number,
     lat?: Number,
     lng?: Number,
-    children: Element<*>,
+    children: React.Element<*>,
 }
 
 /**
