@@ -1,26 +1,8 @@
-// @flow
-import * as selectors from './selectors';
-import * as constants from './constants';
-import * as actions from './actions';
-
-import reducer from './reducer';
-// import saga from './sagas';
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
 
-const reducers = {
-    reducer,
-};
-
-export { GoogleMapProvider, withGoogleMap } from './map';
-
-// const sagas: Array<() => Iterator<*>> = [saga];
-
-export {
-    App,
-    selectors,
-    constants,
-    reducers,
-    actions,
-    // sagas,
-};
+ReactDOM.render(
+    <App />,
+    document.getElementById('app'),
+);

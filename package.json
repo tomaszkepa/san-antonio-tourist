@@ -21,12 +21,13 @@
     "flow:generate": "flow-copy-source -v ./src/main ./dist/main",
     "lint": "eslint src/**",
     "mocha": "BABEL_ENV=test mocha --require ./src/test/index.js 'src/test/unit/**/*.js'",
-    "start": "BABEL_ENV=browser webpack-dev-server --config webpack.config.dev.js",
-    "start:prod": "NODE_ENV=production node dist/main/index.js",
+    "dev": "BABEL_ENV=browser webpack-dev-server --config webpack.config.dev.js",
+    "prod": "NODE_ENV=production node dist/main/index.js",
     "stylelint": "stylelint 'src/**/*.scss' --syntax scss",
     "pretest": "npm run flow:delete && run-p clean lint flow",
     "test": "BABEL_ENV=test nyc npm run mocha",
-    "posttest": "npm run compile && npm run flow:generate"
+    "posttest": "npm run compile && npm run flow:generate",
+    "start": "node server.js"
   },
   "browser": "browser/main/index.js",
   "dependencies": {
@@ -83,6 +84,7 @@
     "eslint-plugin-import": "^1.11.1",
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "^6.0.0",
+    "express": "^4.15.4",
     "extract-text-webpack-plugin": "^2.0.0-beta.5",
     "file-loader": "^0.9.0",
     "flow-bin": "^0.37.0",
