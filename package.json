@@ -24,7 +24,7 @@
     "start": "BABEL_ENV=browser webpack-dev-server --config webpack.config.dev.js",
     "start:prod": "NODE_ENV=production node dist/main/index.js",
     "stylelint": "stylelint 'src/**/*.scss' --syntax scss",
-    "pretest": "npm run flow:delete && run-p clean lint flow stylelint",
+    "pretest": "npm run flow:delete && run-p clean lint flow",
     "test": "BABEL_ENV=test nyc npm run mocha",
     "posttest": "npm run compile && npm run flow:generate"
   },

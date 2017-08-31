@@ -1,3 +1,5 @@
+/* eslint new-parens: 0 */
+
 // @flow
 import React, { Component } from 'react';
 import $script from 'scriptjs';

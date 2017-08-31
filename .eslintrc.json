@@ -83,6 +83,9 @@
     "react/jsx-indent-props": [
       2,
       4
+    ],
+    "react/prefer-stateless-function": [
+      0
     ]
   },
   "globals": {

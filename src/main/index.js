@@ -4,7 +4,7 @@ import * as constants from './constants';
 import * as actions from './actions';
 
 import reducer from './reducer';
-import saga from './sagas';
+// import saga from './sagas';
 
 import App from './App';
 
@@ -14,7 +14,7 @@ const reducers = {
 
 export { GoogleMapProvider, withGoogleMap } from './map';
 
-const sagas: Array<() => Iterator<*>> = [saga];
+// const sagas: Array<() => Iterator<*>> = [saga];
 
 export {
     App,
@@ -22,5 +22,5 @@ export {
     constants,
     reducers,
     actions,
-    sagas,
+    // sagas,
 };

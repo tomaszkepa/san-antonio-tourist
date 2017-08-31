@@ -1,3 +1,5 @@
+/* eslint global-require: 0 */
+
 const middlewares = [];
 
 if (process.env.NODE_ENV === 'development') {

@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: 0 */
+
 // @flow
 import React, { Component } from 'react';
 

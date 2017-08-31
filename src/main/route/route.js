@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import type { List } from 'immutable';
 
 import './route.scss';
 
@@ -8,7 +9,7 @@ type RouteStateType = {
 }
 
 type RoutePropsType = {
-    locations: { [key: string]: Object },
+    locations: List,
     google: { [key: string]: Object },
     directionsService: { [key: string]: Object },
     directionsDisplay: { [key: string]: Object },
