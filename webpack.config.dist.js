@@ -4,8 +4,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-const deviceConstants = require('@wh/device-constants');
-const i18nCommon = require('@wh/i18n-common');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 module.exports = {
@@ -19,11 +17,11 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env': Object.assign({
+            'process.env': {
                 IS_WEBPACK: JSON.stringify(true),
                 NODE_ENV: JSON.stringify('production'),
                 RUN_MODE: JSON.stringify('es'),
-            }, deviceConstants.getDeviceTypes(process.env), i18nCommon.getSiteTypes(process.env)),
+            },
         }),
         new CleanWebpackPlugin(['dist/www'], {
             root: __dirname,
@@ -40,13 +38,6 @@ module.exports = {
                 postcss: [
                     autoprefixer,
                 ],
-                sassLoader: {
-                    data: `${
-                        deviceConstants.getDeviceTypesForSassLoader(process.env)
-                    }${
-                        i18nCommon.getSiteTypesForSassLoader(process.env)
-                    }`,
-                },
             },
         }),
         new SpriteLoaderPlugin(),

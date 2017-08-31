@@ -27,6 +27,7 @@
     "pretest": "npm run flow:delete && run-p clean lint flow",
     "test": "BABEL_ENV=test nyc npm run mocha",
     "posttest": "npm run compile && npm run flow:generate",
+    "postinstall": "npm run postcompile",
     "start": "node server.js"
   },
   "browser": "browser/main/index.js",
