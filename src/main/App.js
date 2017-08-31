@@ -5,7 +5,9 @@ import { END } from 'redux-saga';
 import createStore from './store';
 
 import { GoogleMapProvider } from './map';
-import { MainContainer } from './main';
+import { Search } from './search';
+import { Locations } from './locations';
+import { Route } from './route';
 
 import './main.scss';
 
@@ -27,7 +29,11 @@ const App = class extends Component {
         return (
             <Provider store={this.store}>
                 <GoogleMapProvider>
-                    <MainContainer />
+                    <Search />
+                    <section className="sat__details">
+                        <Locations />
+                        <Route />
+                    </section>
                 </GoogleMapProvider>
             </Provider>
         );
