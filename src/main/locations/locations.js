@@ -6,7 +6,6 @@ import './locations.scss';
 
 type LocationsPropsType = {
     locations: List,
-    displayRoute: () => void,
 }
 
 /**
