@@ -2,8 +2,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const resolve = require('path').resolve;
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-const deviceConstants = require('@wh/device-constants');
-const i18nCommon = require('@wh/i18n-common');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 module.exports = {
@@ -25,11 +23,11 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env': Object.assign({
+            'process.env': {
                 IS_WEBPACK: JSON.stringify(true),
                 NODE_ENV: JSON.stringify('development'),
                 RUN_MODE: JSON.stringify('es'),
-            }, deviceConstants.getDeviceTypes(process.env), i18nCommon.getSiteTypes(process.env)),
+            },
         }),
         new webpack.LoaderOptionsPlugin({
             options: {
@@ -37,13 +35,6 @@ module.exports = {
                 postcss: [
                     autoprefixer,
                 ],
-                sassLoader: {
-                    data: `${
-                        deviceConstants.getDeviceTypesForSassLoader(process.env)
-                    }${
-                        i18nCommon.getSiteTypesForSassLoader(process.env)
-                    }`,
-                },
             },
         }),
         new SpriteLoaderPlugin(),
