@@ -14,9 +14,7 @@ type LocationsPropsType = {
  * @returns {Element} React element
  */
 const Locations = class extends Component {
-    constructor(props: LocationsPropsType, context) {
-        super(props, context);
-    }
+    props: LocationsPropsType;
 
     render() {
         const { locations } = this.props;

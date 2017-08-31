@@ -1,2 +1,2 @@
 // @flow
-export Route from './Container';
+export { default } from './Container';

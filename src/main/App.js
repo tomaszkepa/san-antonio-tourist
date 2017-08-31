@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { END } from 'redux-saga';
+import type { Map } from 'immutable';
 import createStore from './store';
 
 import { GoogleMapProvider } from './map';
-import { Search } from './search';
-import { Locations } from './locations';
-import { Route } from './route';
+import Search from './search';
+import Locations from './locations';
+import Route from './route';
 
 import './styles/main.scss';
 
@@ -20,6 +21,8 @@ const App = class extends Component {
         super();
         this.store = null;
     }
+
+    store: Map;
 
     componentWillMount() {
         this.store = createStore();

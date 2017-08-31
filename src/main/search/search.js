@@ -3,10 +3,21 @@ import React, { Component } from 'react';
 
 import './search.scss';
 
+type PositionType = {
+    place: { [key: string]: Object },
+    lat: null | number,
+    lng: null | number,
+}
+
+type SearchStateType = {
+    inputValue: string,
+    position: PositionType,
+}
+
 type SearchPropsType = {
     addLocation: () => void,
-    google: { [key: string]: any },
-    map: { [key: string]: any },
+    google: { [key: string]: Object },
+    map: { [key: string]: Object },
 }
 
 /**
@@ -14,16 +25,24 @@ type SearchPropsType = {
  * @returns {Element} React element
  */
 const Search = class extends Component {
-    constructor(props: SearchPropsType, context) {
-        super(props, context);
-        this.state = {
+    constructor(props: SearchPropsType) {
+        super(props);
+
+        this.initialState = {
+            inputValue: '',
             position: {
-                place: null,
+                place: {},
                 lat: null,
                 lng: null,
             },
         };
+
+        this.state = this.initialState;
     }
+
+    state: SearchStateType;
+    initialState: SearchStateType;
+    autocompleteRef: ?HTMLInputElement;
 
     componentDidMount() {
         this.initAutoComplete();
@@ -62,6 +81,7 @@ const Search = class extends Component {
             }));
 
             this.setState({
+                inputValue: autocomplete.gm_accessors_.place.Gc.formattedPrediction,
                 position: {
                     place,
                     lat: place.geometry.location.lat(),
@@ -73,24 +93,29 @@ const Search = class extends Component {
 
     addLocationHandler() {
         this.props.addLocation(this.state.position);
-        this.autocompleteRef.value = '';
-        this.setState({
-            position: {
-                place: null,
-                lat: null,
-                lng: null,
-            },
-        });
+        this.setState(this.initialState);
+    }
+
+    changeHandler(e: Object) {
+        this.setState({ inputValue: e.target.value });
     }
 
     render() {
+        const {
+            inputValue,
+            position,
+        } = this.state;
+
         return (
             <div className="sat__search">
                 <form
                     className="sat__search__form"
-                    onSubmit={(e) => e.preventDefault()}>
+                    onSubmit={(e) => e.preventDefault()}
+                >
                     <input
                         ref={ref => (this.autocompleteRef = ref)}
+                        onChange={(e) => this.changeHandler(e)}
+                        value={inputValue}
                         type="text"
                         placeholder="Enter a location"
                         className="sat__search__form__input"
@@ -99,7 +124,7 @@ const Search = class extends Component {
 
                 <button
                     onClick={() => this.addLocationHandler()}
-                    disabled={!this.state.position.place}
+                    disabled={!Object.keys(position.place).length}
                     className="sat__search__form__btn waves-effect waves-light btn-large"
                 >
                     Add Location

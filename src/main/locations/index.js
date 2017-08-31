@@ -1,2 +1,2 @@
 // @flow
-export Locations from './Container';
+export { default } from './Container';

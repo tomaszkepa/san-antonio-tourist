@@ -3,11 +3,15 @@ import React, { Component } from 'react';
 
 import './route.scss';
 
+type RouteStateType = {
+    route: { [key: string]: Object },
+}
+
 type RoutePropsType = {
-    locations: { [key: string]: any },
-    google: { [key: string]: any },
-    directionsService: { [key: string]: any },
-    directionsDisplay: { [key: string]: any },
+    locations: { [key: string]: Object },
+    google: { [key: string]: Object },
+    directionsService: { [key: string]: Object },
+    directionsDisplay: { [key: string]: Object },
 }
 
 /**
@@ -19,9 +23,11 @@ const Route = class extends Component {
         super(props);
 
         this.state = {
-            route: null,
+            route: {},
         };
     }
+
+    state: RouteStateType;
 
     displayRoute() {
         const {
@@ -35,7 +41,7 @@ const Route = class extends Component {
         const stops = [];
 
         if (locations.size > 2) {
-            locations.pop().shift().forEach((location) => {
+            locations.pop().shift().forEach((location: Object) => {
                 stops.push({
                     location: location.place.geometry.location,
                     stopover: true,
@@ -57,7 +63,7 @@ const Route = class extends Component {
             waypoints,
             optimizeWaypoints,
             travelMode,
-        }, (response, status) => {
+        }, (response: Object, status: string) => {
             if (status === 'OK') {
                 directionsDisplay.setDirections(response);
                 this.setState({
@@ -74,7 +80,7 @@ const Route = class extends Component {
     render() {
         const { route } = this.state;
 
-        const listItems = route ? route.legs.map((leg, i) =>
+        const listItems = Object.keys(route).length ? route.legs.map((leg: Object, i: number) =>
             <li key={i} className="collection-item">
                 <p><b>Route Segment {i + 1}:</b></p>
                 <b>From:</b> {leg.start_address}<br />
@@ -89,7 +95,7 @@ const Route = class extends Component {
                 <button
                     className="sat__route__btn waves-effect waves-light btn-large"
                     onClick={() => this.displayRoute()}
-                    disabled={this.props.locations.size < 1}
+                    disabled={this.props.locations.size < 2}
                 >
                     Display Route
                 </button>

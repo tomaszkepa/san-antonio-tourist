@@ -1,2 +1,2 @@
 // @flow
-export Search from './Container';
+export { default } from './Container';

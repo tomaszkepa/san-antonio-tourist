@@ -1,9 +1,17 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import $script from 'scriptjs';
 import contextTypes from './contextTypes';
 
 import './google-map-provider.scss';
+
+type GoogleMapProviderStateType = {
+    loadedMap: boolean,
+    directionsService: { [key: string]: Object },
+    directionsDisplay: { [key: string]: Object },
+    map: { [key: string]: Object },
+    google: { [key: string]: Object },
+}
 
 type GoogleMapProviderPropsType = {
     apiKey?: String,
@@ -17,7 +25,7 @@ type GoogleMapProviderPropsType = {
  * Provides 'google' and 'map' to those child components which are wrapped with 'withGoogleMap' decorator
  * @returns {React.Element<*>} A react element
  */
-class GoogleMapProvider extends React.Component {
+const GoogleMapProvider = class extends Component {
     static childContextTypes = contextTypes;
 
     constructor(props: GoogleMapProviderPropsType) {
@@ -25,15 +33,17 @@ class GoogleMapProvider extends React.Component {
 
         this.state = {
             loadedMap: false,
-            directionsService: null,
-            directionsDisplay: null,
-            map: null,
-            google: null,
+            directionsService: {},
+            directionsDisplay: {},
+            map: {},
+            google: {},
         };
     }
 
+    state: GoogleMapProviderStateType;
+    mapRef: ?HTMLElement;
+
     getChildContext() {
-        console.log('***getChildContext***');
         return {
             directionsService: this.state.directionsService,
             directionsDisplay: this.state.directionsDisplay,
@@ -85,7 +95,7 @@ class GoogleMapProvider extends React.Component {
         return (
             <section className="sat__container">
                 <section className="sat__container__content">
-                    { this.state.map && this.props.children }
+                    { this.state.loadedMap && this.props.children }
                 </section>
                 <section ref={ref => (this.mapRef = ref)} className="sat__container__map">
                     Loading map...
@@ -93,6 +103,6 @@ class GoogleMapProvider extends React.Component {
             </section>
         );
     }
-}
+};
 
 export default GoogleMapProvider;
