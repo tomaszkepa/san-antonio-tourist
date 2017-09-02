@@ -70,8 +70,6 @@ const Route = class extends Component {
                 this.setState({
                     route: response.routes.shift(),
                 });
-
-                console.log(this.state.route);
             } else {
                 window.alert('Directions request failed');
             }

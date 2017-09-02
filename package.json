@@ -134,6 +134,9 @@
     "include": [
       "src/main/**/*.js"
     ],
+    "exclude": [
+      "src/main/middlewares.js"
+    ],
     "reporter": [
       "html",
       "text"

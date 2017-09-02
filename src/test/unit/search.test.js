@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
 import {
@@ -15,12 +15,15 @@ import SearchContainer from '../../main/search/Container';
 
 describe('<Search />', () => {
     before((t, done) => {
-        t.wrapper = shallow(<Search/>);
+        t.wrapper = shallow(<Search />);
         done();
     });
 
     it('renders a <Search /> component', (t) => {
-        expect(t.wrapper.find('div').filter('.sat__search')).to.have.length(1);
+        expect(t.wrapper.find('.sat__search')).to.have.length(1);
+        expect(t.wrapper.find('.sat__search__form')).to.have.length(1);
+        expect(t.wrapper.find('.sat__search__form__input')).to.have.length(1);
+        expect(t.wrapper.find('.sat__search__form__btn')).to.have.length(1);
     });
 });
 
@@ -38,9 +41,41 @@ describe('<Search /> methods', () => {
         l = null;
     });
 
-    it('should run "addLocation" method', () => {
-        l.instance().addLocationHandler();
+    it('search location should run "addLocation" method', () => {
+        const btn = l.find('.sat__search__form__input');
+        btn.simulate('click', { preventDefault() {}, stopPropagation() {} });
         expect(l.instance().props.addLocation.calledOnce);
+    });
+
+    it('add location button should run "changeHandler" method', () => {
+        l.instance().changeHandler = spy();
+
+        const btn = l.find('.sat__search__form__btn');
+        btn.simulate('click', { preventDefault() {}, stopPropagation() {} });
+        expect(l.instance().changeHandler.calledOnce);
+    });
+});
+
+describe('Search initAutoComplete', () => {
+    let l = null;
+
+    beforeEach(() => {
+        spy(Search.prototype, 'componentDidMount');
+        l = mount(<Search />);
+    });
+
+    afterEach(() => {
+        Search.prototype.componentDidMount.restore();
+        l = null;
+    });
+
+    it('calls componentDidMount', () => {
+        expect(Search.prototype.componentDidMount).to.have.property('callCount', 1);
+    });
+
+    it('calls componentDidMount', () => {
+        l.instance().initAutoComplete = spy();
+        expect(l.instance().initAutoComplete.calledOnce);
     });
 });
 

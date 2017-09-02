@@ -53,6 +53,11 @@ const Search = class extends Component {
     initAutoComplete() {
         const markers = [];
         const { google, map } = this.props;
+
+        if (!google || !map) {
+            return;
+        }
+
         const autocomplete = new google.maps.places.Autocomplete(this.autocompleteRef);
 
         autocomplete.bindTo('bounds', map);

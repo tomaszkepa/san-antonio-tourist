@@ -24,5 +24,4 @@ describe('Selectors', () => {
         const newState = getLocations(initState);
         expect(newState).to.equal(List(['1', '2']));
     });
-
 });
