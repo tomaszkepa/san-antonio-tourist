@@ -1,10 +1,12 @@
+$roboto-font-path: "./fonts/roboto/";
+
+@import '~materialize-css/sass/materialize';
+
 @import 'generic/generic.box-sizing';
 
 @import 'generic/generic.normalize';
 
 @import 'generic/generic.reset';
-
-@import 'materialize/index';
 
 .sat__details {
   height: 55vh;
